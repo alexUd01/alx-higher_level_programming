@@ -16,11 +16,12 @@ if __name__ == "__main__":
     )
     d = req.json()
     count = 10
-    for item in d:
-        if count == 0:
-            break
-        print("{}: {}".format(item.get('sha'),
-                              item.get('commit').get('author').get('name')
-                              )
-              )
-        count -= 1
+    try:
+        for item in d:
+            if count == 0:
+                break
+            print("{}: {}".format(item.get('sha'),
+                                  item.get('commit').get('author').get('name')))
+            count -= 1
+    except KeyError:
+        pass
