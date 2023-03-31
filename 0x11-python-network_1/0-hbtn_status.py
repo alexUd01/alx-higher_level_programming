@@ -8,6 +8,6 @@ if __name__ == "__main__":
     with urlopen('https://alx-intranet.hbtn.io/status') as response:
         res = response.read()
         print("Body response:")
-        print("    - type:", type(res))
-        print("    - content:", res)
-        print("    - utf8 content:", res.decode('utf-8'))
+        print("    - type: {}".format(type(res)))
+        print("    - content: {}".format(res))
+        print("    - utf8 content: {}".format(res.decode('utf-8')))
