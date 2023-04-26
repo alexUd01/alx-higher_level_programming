@@ -12,7 +12,7 @@ const myFunc = function (_err, _res, body) {
   const result = {};
 
   // Build list of available ids
-  for (task of body) {
+  for (const task of body) {
     if (result[task.userId] === undefined) {
       result[task.userId] = 0;
     }
