@@ -10,10 +10,10 @@
 */
 const request = require('request');
 
-givenUrl = 'https://swapi-api.alx-tools.com/api/films/';
-preferredUrl = 'https://swapi-api.alx-tools.com/api/people/18/';
+// const givenUrl = 'https://swapi-api.alx-tools.com/api/films/';
+const preferredUrl = 'https://swapi-api.alx-tools.com/api/people/18/';
 
-request(preferredUrl, function(_err, _rsp, body) {
+request(preferredUrl, function (_err, _rsp, body) {
   body = JSON.parse(body);
   console.log(body.films.length);
 });
