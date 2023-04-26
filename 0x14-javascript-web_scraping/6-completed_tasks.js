@@ -7,24 +7,24 @@
 */
 const request = require('request');
 
-const myFunc = function (_err, _res, body) {
-  body = JSON.parse(body);
-  const result = {};
+request(process.argv[2], function (err, _res, body) {
+  if (err) {
+    console.log(err);
+  } else {
+    const completedTasksByUsers = {};
+    body = JSON.parse(body);
 
-  // Build list of available ids
-  for (const task of body) {
-    if (result[task.userId] === undefined) {
-      result[task.userId] = 0;
+    for (let i = 0; i < body.length; ++i) {
+      const userId = body[i].userId;
+      const completed = body[i].completed;
+
+      if (completed && !completedTasksByUsers[userId]) {
+        completedTasksByUsers[userId] = 0;
+      }
+
+      if (completed) ++completedTasksByUsers[userId];
     }
-  }
 
-  // Increment based on the number of completed tasks
-  for (const task of body) {
-    if (task.completed) {
-      result[task.userId] += 1;
-    }
+    console.log(completedTasksByUsers);
   }
-  console.log(result);
-};
-
-request(process.argv[2], myFunc);
+});
