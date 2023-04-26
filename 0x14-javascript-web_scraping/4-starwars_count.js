@@ -1,30 +1,24 @@
 #!/usr/bin/node
-/* A script that prints the number of movies where the character
-   “Wedge Antilles” is present.
 
-   The first argument is the API URL of the Star wars API:
-   https://swapi-api.alx-tools.com/api/films/
-   Wedge Antilles is character ID 18 - your script must use this ID for
-   filtering the result of the API
-   You must use the module request
-*/
 const request = require('request');
+const starWarsUri = process.argv[2];
+let times = 0;
 
-const givenUrl = 'https://swapi-api.alx-tools.com/api/films/';
-// const preferredUrl = 'https://swapi-api.alx-tools.com/api/people/18/';
+request(starWarsUri, function (_err, _res, body) {
+  body = JSON.parse(body).results;
 
-request(givenUrl, function (_err, _rsp, body) {
-  body = JSON.parse(body);
-  let count = 0;
+  for (let i = 0; i < body.length; ++i) {
+    const characters = body[i].characters;
 
-  const results = body.results;
-  for (const result of results) {
-    const characters = result.characters;
-    for (const character of characters) {
-      if (character.endsWith('/18/')) {
-        count = count + 1;
+    for (let j = 0; j < characters.length; ++j) {
+      const character = characters[j];
+      const characterId = character.split('/')[5];
+
+      if (characterId === '18') {
+        times += 1;
       }
     }
   }
-  console.log(count);
+
+  console.log(times);
 });
