@@ -10,10 +10,21 @@
 */
 const request = require('request');
 
-// const givenUrl = 'https://swapi-api.alx-tools.com/api/films/';
-const preferredUrl = 'https://swapi-api.alx-tools.com/api/people/18/';
+const givenUrl = 'https://swapi-api.alx-tools.com/api/films/';
+// const preferredUrl = 'https://swapi-api.alx-tools.com/api/people/18/';
 
-request(preferredUrl, function (_err, _rsp, body) {
+request(givenUrl, function (_err, _rsp, body) {
   body = JSON.parse(body);
-  console.log(body.films.length);
+  let count = 0;
+
+  const results = body.results;
+  for (const result of results) {
+    const characters = result.characters;
+    for (const character of characters) {
+      if (character.endsWith('/18/')) {
+	count = count + 1;
+      }
+    }
+  }
+  console.log(count);
 });
