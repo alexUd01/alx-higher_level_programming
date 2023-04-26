@@ -9,18 +9,16 @@ const request = require('request');
 
 const myFunc = function (_err, _res, body) {
   body = JSON.parse(body);
-  const result = {
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0,
-    6: 0,
-    7: 0,
-    8: 0,
-    9: 0,
-    10: 0
-  };
+  const result = {};
+
+  // Build list of available ids
+  for (task of body) {
+    if (result[task.userId] === undefined) {
+      result[task.userId] = 0;
+    }
+  }
+
+  // Increment based on the number of completed tasks
   for (const task of body) {
     if (task.completed) {
       result[task.userId] += 1;
