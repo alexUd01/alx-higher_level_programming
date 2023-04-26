@@ -22,7 +22,7 @@ request(givenUrl, function (_err, _rsp, body) {
     const characters = result.characters;
     for (const character of characters) {
       if (character.endsWith('/18/')) {
-	count = count + 1;
+        count = count + 1;
       }
     }
   }
